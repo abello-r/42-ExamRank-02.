@@ -1,58 +1,90 @@
-
 #include <unistd.h>
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 #include <string.h>
 
-/*static size_t ft_strlen(char const *string)
+size_t ft_strlen(const char *str)
 {
 	size_t i = 0;
-	
-	while(string[i] != '\0')
+
+	while(str[i] != '\0')
 		i++;
 	return(i);
 }
-*/
-/*static char *ft_strdup(const char *s1)
-{
-	char *copy;
-	int i = 0;
 
-	if (!s1)
-		return(NULL);	
-	if (!(copy = (char *)malloc(sizeof(*copy) * (ft_strlen(s1) + 1))))
+char *ft_strdup(const char *s1)
+{
+	int x = 0;
+	char *copy;
+
+	if(!(copy=(char *)malloc(ft_strlen(s1) + 1)))
 		return(NULL);
-	while (s1[i])
+	
+	while (s1[x] != '\0')
 	{
-		copy[i] = s1[i];
-		i++;
+		copy[x] = s1[x];
+		x++;
 	}
-	copy[i] = 0;
+	copy[x] = '\0';
 	return(copy);
 }
-*/
 
-static char *ft_strchr(const char *s, int c)
+char *ft_substr(char const *s, unsigned int start, size_t len)
 {
-	int i = 0;
+	size_t i = 0;
+	char *copy;
 
-	while(s[i] != '\0')
+	if (s == NULL || ft_strlen(s) < start)
+		return(ft_strdup(""));
+	copy = (char *)malloc(sizeof(char) * (len + 1));
+	if (copy == NULL)
 	{
-		if(s[i] == c)
-			return((char *)s);
+		free(copy);
+		copy = NULL;
+		return(NULL);
+	}
+	while (i < len)
+	{
+		copy[i] = s[start + i];
 		i++;
 	}
-	return(0);
+	copy[i] = '\0';
+	return(copy);
 }
 
-
-
-
-
-int main()
+char *ft_strjoin(char const *s1, char const *s2)
 {
-	char *x = "Hola platano";
-	printf("%s", ft_strchr(x, 'l'));
-	printf("\n%s", strchr(x, 'l'));
+	char *x;
+	size_t i = 0;
+	size_t c = 0;
+	
+	if (!s1 || !s2)
+		return(NULL);
+	
+	if(!(x = (char *)malloc(sizeof(char) * ft_strlen(s1) + ft_strlen(s2) + 1)))
+		return(NULL);
+	while (s1[i] != '\0')
+	{
+		x[c] = s1[i];
+		i++;
+		c++;
+	}
+	i = 0;
+	while (s2[i] != '\0')
+	{
+		x[c] = s2[i];
+		c++;
+		i++;
+	}
+	x[c] = '\0';
+	return(x);
+}
+
+int main ()
+{
+	char *x = "pepinillo volador";
+	char *y = "banana explosiva";
+
+	printf("%s", ft_strjoin(x, y));
 	return(0);
 }
