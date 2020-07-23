@@ -17,7 +17,7 @@ int main (int argc, char **argv)
 			{
 				if (x == 2 && !flag[(unsigned char)argv[x][y]])
 					flag[(unsigned char)argv[x][y]] = 1;
-				else if (x == 1 && flag[(unsigned char)argv[x][y]])
+				else if (x == 1 && flag[(unsigned char)argv[x][y]] == 1)
 				{
 					write(1, &argv[x][y], 1);
 					flag[(unsigned char)argv[x][y]] = 2;
@@ -44,5 +44,5 @@ int main (int argc, char **argv)
 // y luego lo igualamos a 2, que quiere decir que ya no entra en nuestra cuenta binaria y asi no se volverá a escribir.
 // aumentamos contadores.
 // escribimos el salto de linea y retornamos (0).
-// fin.
+// fin. 
 // PD : Es importante castear dentro del flag el argv, en caso de no hacerlo, al compilar con flags (Wall Werror Wextra), mostrará un error.
