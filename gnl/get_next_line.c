@@ -1,4 +1,4 @@
-#include "get_next_line_h"
+#include "get_next_line.h"
 
 /* 
 Ft_strlen
@@ -8,28 +8,34 @@ ft_strjoin
 getnextline
 */
 
-size_t ft_strlen(char *str)
+size_t ft_strlen(const  char *str)
 {
 	size_t i = 0;
 
 	while(str[i] != '\0')
-	{
 		i++;
-	}
 	return(i);
 }
 
 char *ft_strchr (const char *str, int ch_find)
 {
-	while(*str)
+	int i = 0;
+
+	if (str == NULL)
+		return (0);
+	if (str[i] == '\0')
 	{
-		if (*str == (char)ch_find)
-			return((char)*str);
-		str++;
+		if (ch_find == '\0')
+			return ((char *)str);
+		return(0);
 	}
-	if ((char)ch_find == '\0')
-		return((char *)str);
-	return(NULL);
+	while (str[i] != '\0')
+	{
+		if (str[i] == ch_find)
+			return((char *)str + i);
+		i++;
+	}
+	return(0);
 }
 
 char *ft_strdup(const char *str)
@@ -44,7 +50,7 @@ char *ft_strdup(const char *str)
 		dup[i] = str[i];
 		i++;
 	}
-	dup = '\0';
+	dup[i] = '\0';
 	return(dup);
 }
 
@@ -107,7 +113,7 @@ int get_next_line (char **line)
 			*line = ft_strdup("");
 			return(0);
 		}
-		else if ((aux1 = ft_srtrchr(mem, '\n')))
+		else if ((aux1 = ft_strchr(mem, '\n')))
 		{
 			*aux1 = 0;
 			*line = ft_strdup(mem);
